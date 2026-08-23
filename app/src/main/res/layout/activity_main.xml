@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#12151A">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wave K-Line Reader"
+            android:textColor="#E8EAED"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="อ่านค่า ECU ผ่านสาย FTDI (K-Line)"
+            android:textColor="#7B8794"
+            android:textSize="13sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Update checker -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#1A1E25"
+            android:padding="14dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/tvUpdateStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ยังไม่ได้ตรวจสอบอัปเดต"
+                android:textColor="#E8EAED"
+                android:textSize="13sp"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btnCheckUpdate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ตรวจสอบอัปเดต"
+                    android:layout_marginEnd="6dp" />
+
+                <Button
+                    android:id="@+id/btnDownloadUpdate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ดาวน์โหลด &amp; ติดตั้ง"
+                    android:layout_marginStart="6dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Status: adapter -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="สถานะสาย"
+            android:textColor="#FFB020"
+            android:textSize="11sp"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:id="@+id/tvAdapterStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ยังไม่ได้เชื่อมต่อสาย"
+            android:textColor="#E8EAED"
+            android:textSize="14sp"
+            android:background="#1A1E25"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Status: ECU -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="สถานะ ECU"
+            android:textColor="#FFB020"
+            android:textSize="11sp"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:id="@+id/tvEcuStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ยังไม่ได้ลองคุยกับ ECU"
+            android:textColor="#E8EAED"
+            android:textSize="14sp"
+            android:background="#1A1E25"
+            android:padding="14dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/btnConnect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="เชื่อมต่อสาย"
+                android:layout_marginEnd="6dp" />
+
+            <Button
+                android:id="@+id/btnRead"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ลองอ่าน ECU"
+                android:layout_marginStart="6dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnDisconnect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ตัดการเชื่อมต่อ"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Data readouts -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ค่าที่อ่านได้ (ทดลอง)"
+            android:textColor="#FFB020"
+            android:textSize="11sp"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="6dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="#20252D"
+                android:padding="14dp"
+                android:layout_marginEnd="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RPM"
+                    android:textColor="#7B8794"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tvRpm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#E8EAED"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="#20252D"
+                android:padding="14dp"
+                android:layout_marginStart="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TPS (คันเร่ง)"
+                    android:textColor="#7B8794"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tvTps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#E8EAED"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="#20252D"
+                android:padding="14dp"
+                android:layout_marginEnd="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="อุณหภูมิเครื่อง (ECT)"
+                    android:textColor="#7B8794"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tvEct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#E8EAED"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="#20252D"
+                android:padding="14dp"
+                android:layout_marginStart="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="อุณหภูมิอากาศ (IAT)"
+                    android:textColor="#7B8794"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tvIat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#E8EAED"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="#20252D"
+                android:padding="14dp"
+                android:layout_marginEnd="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AF (สัดส่วนอากาศ/เชื้อเพลิง)"
+                    android:textColor="#7B8794"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tvAf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#E8EAED"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="#20252D"
+                android:padding="14dp"
+                android:layout_marginStart="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ไฟเตือน"
+                    android:textColor="#7B8794"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tvLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#E8EAED"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Configurable offsets -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ตั้งค่า offset (ปรับได้โดยไม่ต้อง build ใหม่)"
+            android:textColor="#FFB020"
+            android:textSize="11sp"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ใช้ผลจากโหมดวิเคราะห์ด้านล่างมาใส่ตรงนี้ แล้วกดปุ่มใช้ค่านี้เพื่อทดสอบทันที ค่าจะถูกจำไว้ในเครื่อง"
+            android:textColor="#7B8794"
+            android:textSize="11.5sp"
+            android:layout_marginBottom="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginEnd="6dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="RPM (byte แรกของ 2 byte)" android:textColor="#7B8794" android:textSize="10sp" />
+                <EditText android:id="@+id/etOffRpm" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="number" android:textColor="#E8EAED" android:background="#1A1E25" android:padding="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="6dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="TPS" android:textColor="#7B8794" android:textSize="10sp" />
+                <EditText android:id="@+id/etOffTps" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="number" android:textColor="#E8EAED" android:background="#1A1E25" android:padding="10dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginEnd="6dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="ECT" android:textColor="#7B8794" android:textSize="10sp" />
+                <EditText android:id="@+id/etOffEct" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="number" android:textColor="#E8EAED" android:background="#1A1E25" android:padding="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="6dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="IAT" android:textColor="#7B8794" android:textSize="10sp" />
+                <EditText android:id="@+id/etOffIat" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="number" android:textColor="#E8EAED" android:background="#1A1E25" android:padding="10dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_marginBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginEnd="4dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="AF" android:textColor="#7B8794" android:textSize="10sp" />
+                <EditText android:id="@+id/etOffAf" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="number" android:textColor="#E8EAED" android:background="#1A1E25" android:padding="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="ไฟเตือน (byte)" android:textColor="#7B8794" android:textSize="10sp" />
+                <EditText android:id="@+id/etOffLightByte" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="number" android:textColor="#E8EAED" android:background="#1A1E25" android:padding="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="4dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="ไฟเตือน (bit 0-7)" android:textColor="#7B8794" android:textSize="10sp" />
+                <EditText android:id="@+id/etOffLightBit" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:inputType="number" android:textColor="#E8EAED" android:background="#1A1E25" android:padding="10dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnApplyOffsets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ใช้ค่านี้"
+            android:layout_marginBottom="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="โหมดหา offset อัตโนมัติ"
+            android:textColor="#FFB020"
+            android:textSize="11sp"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="อ่าน ECU ก่อน แล้วตั้งชื่อสถานะ (เช่น ปล่อยคันเร่ง / บิดสุด) แล้วกดบันทึก ทำซ้ำหลายสถานะแล้วกดวิเคราะห์"
+            android:textColor="#7B8794"
+            android:textSize="11.5sp"
+            android:layout_marginBottom="10dp" />
+
+        <EditText
+            android:id="@+id/etLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="เช่น ปล่อยคันเร่ง"
+            android:textColorHint="#5A6572"
+            android:textColor="#E8EAED"
+            android:background="#1A1E25"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp"
+            android:inputType="text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/btnSaveSample"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="บันทึกตัวอย่าง"
+                android:layout_marginEnd="6dp" />
+
+            <Button
+                android:id="@+id/btnAnalyze"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="วิเคราะห์"
+                android:layout_marginStart="6dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnClearSamples"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ล้างตัวอย่างทั้งหมด"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Log -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log การสื่อสาร (hex)"
+            android:textColor="#FFB020"
+            android:textSize="11sp"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="6dp" />
+
+        <ScrollView
+            android:id="@+id/scrollLog"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="#0D0F13"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tvLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="รอการเชื่อมต่อ..."
+                android:textColor="#8FDC9A"
+                android:textSize="11sp"
+                android:fontFamily="monospace" />
+        </ScrollView>
+
+    </LinearLayout>
+</ScrollView>
